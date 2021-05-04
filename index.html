@@ -1,0 +1,93 @@
+<!--REFERENCES
+1. https://www.w3schools.com/howto/howto_js_rangeslider.asp
+
+
+
+
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+
+
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Generate a Password</h2>
+        </div>
+
+        <!-- LENGTH SELETOR-->
+        <!-- Reference 1.-->
+        <div>
+          <input type="range" min="8" max="128" value="12" id="lengthSelect">
+          <p>Number of characters?: <span id="characterCount"></span></p>
+          
+          <script>
+            var slider = document.getElementById("lengthSelect");
+            var output = document.getElementById("characterCount");
+            output.innerHTML = slider.value;
+            
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+            }
+            </script>
+
+        </div>
+
+        <!-- UPPERCASE SELECTOR-->
+
+        <div>
+          <input type="checkbox" id="uppercaseSelect">
+          <label for="uppercaseSelect"> Use Uppercase?</label>
+        </div>
+
+        <!-- LOWERCASE SELECTOR-->
+
+        <div>
+          <input type="checkbox" id="lowercaseSelect">
+          <label for="lowercaseSelect"> Use Lowercase?</label>
+        </div>
+
+        <div>
+          <input type="checkbox" id="numbersSelect">
+          <label for="numbersSelect"> Use Numbers?</label>
+        </div>
+
+        <div>
+          <input type="checkbox" id="symbolsSelect">
+          <label for="symbolsSelect"> Use Symbols?</label>
+        </div>
+
+        <div class="card-body">
+          <textarea
+            readonly
+            id="password"
+            placeholder="Your Secure Password"
+            aria-label="Generated Password"
+          ></textarea>
+        </div>
+        <div class="card-footer">
+          <button id="generate" class="btn">Generate Password</button>
+        </div>
+      </div>
+
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
