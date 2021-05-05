@@ -1,36 +1,42 @@
 // REFERENCES
 // 1. https://www.w3schools.com/jsref/prop_number_value.asp
+// 2. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
+// 3. https://www.w3schools.com/jsref/jsref_push.asp
 
+// NOTES
+// - Removed all var and replaced with const/let
+// - Had to change to using functions to calculate my random variables becuase previous method of calculating variables was only calculating one and not running each loop
 
 // Assignment Code
 const generateBtn = document.querySelector("#generate");
 
-const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const lowercase = 'abcdefghijklmnopqrstuvwxyz'
-const numbers = '0123456789'
-const symbols = '!@#$%^&*()_+'
+// Creates the possible character values for each type
 
+const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const lowercase = "abcdefghijklmnopqrstuvwxyz'"
+const numbers = "0123456789"
+const symbols = "!@#$%^&*()_+"
+
+// Pulls the id from the HTML to be read by my js file
 
 const uppercaseElement = document.getElementById("uppercaseSelect");
 const lowercaseElement = document.getElementById("lowercaseSelect");
 const numbersElement = document.getElementById("numbersSelect");
 const symbolsElement = document.getElementById("symbolsSelect");
-const passwordElement = document.getElementById("#generate");
 
 // Write password to the #password input
 
 function writePassword() {
   
   /* Reference 1. */ 
-  const pickLength = +document.getElementById("lengthSelect").value
+  const pickLength = document.getElementById("lengthSelect").value
 
-  //Functions for calculating random characters
-  //Using functions becuase previous method of calculating variables was only causing it to calculate once.
-  //This caused the password to repeat. 
+  // Functions for calculating random characters
+  // Math.random generates random value from 0 - 1, multiplies it by  xxxx.length, round that value down with Math.floor, and then selects the matching number from the xxxx list 
+  /* Reference 3 */
 
   function randLowercase() {
     return uppercase[Math.floor(Math.random() * uppercase.length)]
-    //console.log(uppercaseValue)
   }
 
   function randUppercase() {
@@ -45,12 +51,13 @@ function writePassword() {
     return symbols[Math.floor(Math.random() * symbols.length)]
   }
 
-    //Initialize blank password
+    //Initialize blank password to be filled
 
     let pwd = "";
 
   // If statements to check if each of the 4 character elements are selected
-  // If true, they run each of their respective random character functions and output to the tempB constant
+  // If true, they run each of their respective random character functions above and output to the tempB constant
+  /* Reference 3. */
 
   function generatePassword() {
     
@@ -72,37 +79,31 @@ function writePassword() {
         tempB.push(randSymbols())
       }
       
+      // If the length is 0, do not return a password
+
       if (tempB.length === 0) {
         return "";
       }
 
-      console.log(tempB)
-        return tempB[Math.floor(Math.random() * tempB.length)];
+    // Now that I have a complete array of each checked option, this line picks one at random to pass to the pasword using the same logic as lines 38 - 52
+
+    return tempB[Math.floor(Math.random() * tempB.length)];
   }
 
-    // For loop to continually run 
+  // For loop that runs until the selected password length is achieved
 
   for (let i = 0; i < pickLength; i++)  {
     const tempA = generatePassword();
     pwd += tempA;
-  
   }
-  
-    //var password = generatePassword();
-    var passwordText = document.querySelector("#password");
 
-    passwordText.value = pwd;
+  // Pastes password into output box
+  
+  const passwordText = document.querySelector("#password");
+  passwordText.value = pwd;
 
 }
 
-
-//uppercaseElement.checked && tempB.push(randLowercase());
-//lowercaseElement.checked && tempB.push(randUppercase());
-//numbersElement.checked && tempB.push(randNumbers());
-//symbolsElement.checked && tempB.push(randSymbols());
-
-
-
-
 // Add event listener to generate button
+
 generateBtn.addEventListener("click", writePassword);
