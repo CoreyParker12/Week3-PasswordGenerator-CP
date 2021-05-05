@@ -24,36 +24,68 @@ function writePassword() {
   /* Reference 1. */ 
   const pickLength = +document.getElementById("lengthSelect").value
 
-//Going to remove the below method of finding random values
+  //Functions for calculating random characters
+  //Using functions becuase previous method of calculating variables was only causing it to calculate once.
+  //This caused the password to repeat. 
 
-  const uppercaseValue = uppercase[Math.floor(Math.random() * uppercase.length)]
-  const lowercaseValue = lowercase[Math.floor(Math.random() * lowercase.length)]
-  const numbersValue = numbers[Math.floor(Math.random() * numbers.length)]
-  const symbolsValue = symbols[Math.floor(Math.random() * symbols.length)]
+  function randLowercase() {
+    return uppercase[Math.floor(Math.random() * uppercase.length)]
+    //console.log(uppercaseValue)
+  }
 
+  function randUppercase() {
+    return lowercase[Math.floor(Math.random() * lowercase.length)]
+  }
 
-    const len = pickLength;
+  function randNumbers() {
+    return numbers[Math.floor(Math.random() * numbers.length)]
+  }
+
+  function randSymbols() {
+    return symbols[Math.floor(Math.random() * symbols.length)]
+  }
+
+    //Initialize blank password
+
     let pwd = "";
 
-    for (let i = 0; i < len; i++)  {
-      const tempA = generateTemp();
-      pwd += tempA;
+  // If statements to check if each of the 4 character elements are selected
+  // If true, they run each of their respective random character functions and output to the tempB constant
 
-    }
-
-  function generateTemp() {
+  function generatePassword() {
+    
     const tempB = [];
-    uppercaseElement.checked && tempB.push(uppercaseValue);
-    lowercaseElement.checked && tempB.push(lowercaseValue);
-    numbersElement.checked && tempB.push(numbersValue);
-    symbolsElement.checked && tempB.push(symbolsValue);
 
-    if (tempB.length === 0) {
-      return "";
-    }
+      if (uppercaseElement.checked === true) {
+        tempB.push(randLowercase());
+      }
+      
+      if (lowercaseElement.checked === true) {
+        tempB.push(randUppercase());
+      }
 
-    const testing = tempB[Math.floor(Math.random() * tempB.length)];
-    console.log(testing)
+      if (numbersElement.checked === true) {
+        tempB.push(randNumbers());
+      }
+
+      if (symbolsElement.checked === true) {
+        tempB.push(randSymbols())
+      }
+      
+      if (tempB.length === 0) {
+        return "";
+      }
+
+      console.log(tempB)
+        return tempB[Math.floor(Math.random() * tempB.length)];
+  }
+
+    // For loop to continually run 
+
+  for (let i = 0; i < pickLength; i++)  {
+    const tempA = generatePassword();
+    pwd += tempA;
+  
   }
   
     //var password = generatePassword();
@@ -64,7 +96,10 @@ function writePassword() {
 }
 
 
-
+//uppercaseElement.checked && tempB.push(randLowercase());
+//lowercaseElement.checked && tempB.push(randUppercase());
+//numbersElement.checked && tempB.push(randNumbers());
+//symbolsElement.checked && tempB.push(randSymbols());
 
 
 
