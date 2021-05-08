@@ -1,12 +1,11 @@
 // REFERENCES
-// 1. https://www.w3schools.com/jsref/prop_number_value.asp
-// 2. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
-// 3. https://www.w3schools.com/jsref/jsref_push.asp
+// 1. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
+// 2. https://www.w3schools.com/jsref/jsref_push.asp
 
 // NOTES
 // - Removed all var and replaced with const/let
 // - Had to change to using functions to calculate my random variables becuase previous method of calculating variables was only calculating one and not running each loop
-// - Started by using checkboxs, but since the aceptance criteria called for prompts, I did did that portion of the work, 
+// - Started by using checkboxs, but since the acceptance criteria called for prompts, I re-did that portion of the work 
 
 
 // Assignment Code
@@ -24,13 +23,25 @@ const symbols = "!@#$%^&*()_+"
 
 function writePassword() {
   
+  // Prompts user for number of characters
+
+  let lengthSelect = 0;
+  while (lengthSelect <= 8 || lengthSelect >= 128) {
+    lengthSelect = prompt('Length? 8-128 Characters');
+    if (lengthSelect >= 8 && lengthSelect <= 128) {
+      break;
+    } else{
+      alert('Must be between 8-128 characters!');
+    }
+  }
+
   // Prompts user for uppercase
 
   let uppercaseElement = '';
   while (uppercaseElement !== 'Y' || uppercaseElement !== 'N') {
     uppercaseElement = prompt('Use Uppercase? Y/N?');
     if (uppercaseElement === 'Y' || uppercaseElement === 'N') {
-      break
+      break;
     } else {
       alert('Must type Y or N');
     }
@@ -42,7 +53,7 @@ function writePassword() {
   while (lowercaseElement !== 'Y' || lowercaseElement !== 'N') {
     lowercaseElement = prompt('Use Lowercase? Y/N?');
     if (lowercaseElement === 'Y' || lowercaseElement === 'N') {
-      break
+      break;
     } else {
       alert('Must type Y or N');
     }
@@ -54,7 +65,7 @@ function writePassword() {
   while (numbersElement !== 'Y' || numbersElement !== 'N') {
     numbersElement = prompt('Use Numbers? Y/N?');
     if (numbersElement === 'Y' || numbersElement === 'N') {
-      break
+      break;
     } else {
       alert('Must type Y or N');
     }
@@ -65,18 +76,15 @@ function writePassword() {
   while (symbolsElement !== 'Y' || symbolsElement !== 'N') {
     symbolsElement = prompt('Use Symbols? Y/N?');
     if (symbolsElement === 'Y' || symbolsElement === 'N') {
-      break
+      break;
     } else {
       alert('Must type Y or N');
     }
   }
 
-  /* Reference 1. */ 
-  const pickLength = document.getElementById("lengthSelect").value
-
   // Functions for calculating random characters
   // Math.random generates random value from 0 - 1, multiplies it by  xxxx.length, round that value down with Math.floor, and then selects the matching number from the xxxx list 
-  /* Reference 2 */
+  /* Reference 1 */
 
   function randUppercase() {
     return uppercase[Math.floor(Math.random() * uppercase.length)]
@@ -100,7 +108,7 @@ function writePassword() {
 
   // If statements to check if each of the 4 character elements are selected
   // If true, they run each of their respective random character functions above and output to the tempB constant
-  /* Reference 3. */
+  /* Reference 2. */
 
   function generatePassword() {
     
@@ -136,7 +144,7 @@ function writePassword() {
 
   // For loop that runs until the selected password length is achieved
 
-  for (let i = 0; i < pickLength; i++)  {
+  for (let i = 0; i < lengthSelect; i++)  {
     const tempA = generatePassword();
     pwd += tempA;
   }
