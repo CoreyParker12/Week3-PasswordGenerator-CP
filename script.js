@@ -6,40 +6,83 @@
 // NOTES
 // - Removed all var and replaced with const/let
 // - Had to change to using functions to calculate my random variables becuase previous method of calculating variables was only calculating one and not running each loop
+// - Started by using checkboxs, but since the aceptance criteria called for prompts, I did did that portion of the work, 
+
 
 // Assignment Code
+
 const generateBtn = document.querySelector("#generate");
 
 // Creates the possible character values for each type
 
 const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const lowercase = "abcdefghijklmnopqrstuvwxyz'"
+const lowercase = "abcdefghijklmnopqrstuvwxyz"
 const numbers = "0123456789"
 const symbols = "!@#$%^&*()_+"
-
-// Pulls the id from the HTML to be read by my js file
-
-const uppercaseElement = document.getElementById("uppercaseSelect");
-const lowercaseElement = document.getElementById("lowercaseSelect");
-const numbersElement = document.getElementById("numbersSelect");
-const symbolsElement = document.getElementById("symbolsSelect");
 
 // Write password to the #password input
 
 function writePassword() {
   
+  // Prompts user for uppercase
+
+  let uppercaseElement = '';
+  while (uppercaseElement !== 'Y' || uppercaseElement !== 'N') {
+    uppercaseElement = prompt('Use Uppercase? Y/N?');
+    if (uppercaseElement === 'Y' || uppercaseElement === 'N') {
+      break
+    } else {
+      alert('Must type Y or N');
+    }
+  }
+  
+  //Prompts user for lowercase
+
+  let lowercaseElement = '';
+  while (lowercaseElement !== 'Y' || lowercaseElement !== 'N') {
+    lowercaseElement = prompt('Use Lowercase? Y/N?');
+    if (lowercaseElement === 'Y' || lowercaseElement === 'N') {
+      break
+    } else {
+      alert('Must type Y or N');
+    }
+  }
+  
+  // Prompts user for numbers
+
+  let numbersElement = '';
+  while (numbersElement !== 'Y' || numbersElement !== 'N') {
+    numbersElement = prompt('Use Numbers? Y/N?');
+    if (numbersElement === 'Y' || numbersElement === 'N') {
+      break
+    } else {
+      alert('Must type Y or N');
+    }
+  }
+  
+  // Prompts user for symbols
+  let symbolsElement = '';
+  while (symbolsElement !== 'Y' || symbolsElement !== 'N') {
+    symbolsElement = prompt('Use Symbols? Y/N?');
+    if (symbolsElement === 'Y' || symbolsElement === 'N') {
+      break
+    } else {
+      alert('Must type Y or N');
+    }
+  }
+
   /* Reference 1. */ 
   const pickLength = document.getElementById("lengthSelect").value
 
   // Functions for calculating random characters
   // Math.random generates random value from 0 - 1, multiplies it by  xxxx.length, round that value down with Math.floor, and then selects the matching number from the xxxx list 
-  /* Reference 3 */
+  /* Reference 2 */
 
-  function randLowercase() {
+  function randUppercase() {
     return uppercase[Math.floor(Math.random() * uppercase.length)]
   }
 
-  function randUppercase() {
+  function randLowercase() {
     return lowercase[Math.floor(Math.random() * lowercase.length)]
   }
 
@@ -63,20 +106,20 @@ function writePassword() {
     
     const tempB = [];
 
-      if (uppercaseElement.checked === true) {
-        tempB.push(randLowercase());
-      }
-      
-      if (lowercaseElement.checked === true) {
+      if (uppercaseElement === 'Y') {
         tempB.push(randUppercase());
       }
 
-      if (numbersElement.checked === true) {
+      if (lowercaseElement === 'Y') {
+        tempB.push(randLowercase());
+      }
+
+      if (numbersElement === 'Y') {
         tempB.push(randNumbers());
       }
 
-      if (symbolsElement.checked === true) {
-        tempB.push(randSymbols())
+      if (symbolsElement === 'Y') {
+        tempB.push(randSymbols());
       }
       
       // If the length is 0, do not return a password
@@ -85,9 +128,10 @@ function writePassword() {
         return "";
       }
 
-    // Now that I have a complete array of each checked option, this line picks one at random to pass to the pasword using the same logic as lines 38 - 52
+    // Now that I have a complete array of each checked option, this line picks one at random to pass to the pasword using the same logic as above
 
     return tempB[Math.floor(Math.random() * tempB.length)];
+
   }
 
   // For loop that runs until the selected password length is achieved
